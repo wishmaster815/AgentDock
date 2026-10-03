@@ -1,0 +1,15 @@
+import { createOpenRouter } from '@openrouter/ai-sdk-provider';
+
+export const getAgentModel = () => {
+    const provider = createOpenRouter({
+        apiKey: process.env.OPENROUTER_API_KEY,
+    });
+
+    const modelId = process.env.OPENROUTER_DEFAULT_MODEL;
+
+    if (!modelId) {
+        throw new Error('OPENROUTER_DEFAULT_MODEL is not defined');
+    }
+
+    return provider(modelId);
+};
