@@ -1,14 +1,14 @@
 // what type of actions user can perform
 export type ActionType =
-    | 'file_create'
-    | 'file_modify'
-    | 'file_delete'
-    | 'folder_create'
-    | 'code_analysis'
-    | 'tool_execute';
+    | "file_create"
+    | "file_modify"
+    | "file_delete"
+    | "folder_create"
+    | "code_analysis"
+    | "tool_execute";
 
 // what is the stage at which that particular process is going on
-export type ActionStatus = 'pending' | 'executed' | 'approved' | 'rejected';
+export type ActionStatus = "pending" | "executed" | "approved" | "rejected";
 
 // certain logs to show during the execution of the process
 export interface ActionLog {
@@ -45,13 +45,13 @@ export const defaultAgentConfig = (): AgentConfig => ({
     codebasePath: process.cwd(),
     maxFileSizeToRead: 1024 * 1024,
     excludePatterns: [
-        'node_modules',
-        '.git',
-        'dist',
-        'build',
-        '.next',
-        '*.log',
-        '.env*',
+        "node_modules",
+        ".git",
+        "dist",
+        "build",
+        ".next",
+        "*.log",
+        ".env*",
     ],
     tools: {
         allowShellExecution: true,
@@ -63,10 +63,10 @@ export const defaultAgentConfig = (): AgentConfig => ({
 
 export function isMutationType(t: ActionType): boolean {
     return (
-        t === 'file_create' ||
-        t === 'file_modify' ||
-        t === 'file_delete' ||
-        t === 'folder_create' ||
-        t === 'tool_execute'
+        t === "file_create" ||
+        t === "file_modify" ||
+        t === "file_delete" ||
+        t === "folder_create" ||
+        t === "tool_execute"
     );
 }
