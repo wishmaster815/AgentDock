@@ -1,5 +1,6 @@
 import chalk from "chalk";
-import { confirm, isCancel, log, text } from "@clack/prompts";
+import { confirm, isCancel, text } from "@clack/prompts";
+import ora from "ora";
 import { ToolLoopAgent, stepCountIs } from "ai";
 import { getAgentModel } from "../../ai";
 import { createAskTools } from "./askTools";
@@ -32,19 +33,34 @@ export const runAskMode = async () => {
 
     const tools = {
         ...createAskTools(executor),
-        // TODO: will add web search funcitonality tool as well therefore did spread here
+        // TODO: will add web search functionality tool as well therefore did spread here
     };
+
+    const spin = ora({ text: "Thinking...", color: "cyan" });
 
     const agent = new ToolLoopAgent({
         model: getAgentModel(),
         stopWhen: stepCountIs(20),
         tools,
+        onStepFinish: (step) => {
+            const names = step.toolCalls?.map((c) => c.toolName).join(", ");
+            if (names) spin.text = `Running: ${names}...`;
+        },
     });
 
-    const result = await agent.generate({
-        prompt: question.trim(),
-    });
-    const answer = result.text?.trim() || "(no answer)";
+    let answer: string;
+    spin.start();
+    try {
+        const result = await agent.generate({
+            prompt: question.trim(),
+        });
+        answer = result.text?.trim() || "(no answer)";
+        spin.succeed("Done");
+    } catch (err) {
+        spin.fail("Failed to get an answer");
+        throw err;
+    }
+
     console.log("\n" + renderTerminalMarkDown(answer) + "\n");
     const wantsSave = await confirm({
         message: "Save this answer to a .md file in the current directory?",
