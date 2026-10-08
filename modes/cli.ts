@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import { select, isCancel } from "@clack/prompts";
 import { runAgentMode } from "./agent/orchestrator";
+import { runAskMode } from "./ask/orchestrator";
 
 export const runCliMode = async () => {
     while (true) {
@@ -22,6 +23,7 @@ export const runCliMode = async () => {
         if (mode === "plan") {
         }
         if (mode === "ask") {
+            await runAskMode();
         }
         if (mode !== "agent" && mode !== "plan" && mode !== "ask") {
             console.log(chalk.red("Choose from the given options only"));
