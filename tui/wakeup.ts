@@ -2,19 +2,19 @@ import { select, isCancel, log } from "@clack/prompts";
 import chalk from "chalk";
 import figlet from "figlet";
 import { runCliMode } from "../modes/cli";
+import { runTelegramMode } from "../modes/telegram";
 
-
-const BANNER_FONT = 'ANSI Shadow';
-const SHADOW = chalk.hex('#5b4d9e');
-const FACE = chalk.hex('#e8dcf8').bold;
+const BANNER_FONT = "ANSI Shadow";
+const SHADOW = chalk.hex("#5b4d9e");
+const FACE = chalk.hex("#e8dcf8").bold;
 
 function printBannerWithShadow(ascii: string) {
-    const bannerLines = ascii.replace(/\s+$/, '').split('\n');
+    const bannerLines = ascii.replace(/\s+$/, "").split("\n");
     const maxLen = Math.max(...bannerLines.map((l) => l.length), 0);
     const rowWidth = maxLen + 2;
 
     for (const line of bannerLines) {
-        console.log(SHADOW(('  ' + line).padEnd(rowWidth)));
+        console.log(SHADOW(("  " + line).padEnd(rowWidth)));
     }
     process.stdout.write(`\x1b[${bannerLines.length}A`);
     for (const line of bannerLines) {
@@ -26,9 +26,9 @@ function printBannerWithShadow(ascii: string) {
 export async function runWakeUp() {
     let ascii: string;
     try {
-        ascii = figlet.textSync('agent-dock', { font: BANNER_FONT });
+        ascii = figlet.textSync("agent-dock", { font: BANNER_FONT });
     } catch {
-        ascii = figlet.textSync('agent-dock', { font: 'Standard' });
+        ascii = figlet.textSync("agent-dock", { font: "Standard" });
     }
 
     printBannerWithShadow(ascii);
@@ -38,22 +38,22 @@ export async function runWakeUp() {
         options: [
             { value: "cli", label: "CLI" },
             { value: "telegram", label: "TELEGRAM" },
-            { value: "exit", label: "EXIT" }
-        ]
-    })
-    if (isCancel(mode) || (mode === "exit")) {
+            { value: "exit", label: "EXIT" },
+        ],
+    });
+    if (isCancel(mode) || mode === "exit") {
         console.log(chalk.dim("GoodBye \n"));
         return;
     }
     if (mode === "cli") {
-        console.log('====================================');
+        console.log("====================================");
         console.log("Entering cli mode...");
-        console.log('====================================');
-        await runCliMode()
-    }
-    else {
-        console.log('====================================');
+        console.log("====================================");
+        await runCliMode();
+    } else {
+        console.log("====================================");
         console.log("Entering telegram mode...");
-        console.log('====================================');
+        console.log("====================================");
+        await runTelegramMode();
     }
 }
