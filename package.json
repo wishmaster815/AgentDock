@@ -1,17 +1,23 @@
 {
-  "name": "agentdock",
+  "name": "@wishmaster815/agentdock",
+  "version": "0.1.0",
+  "description": "A terminal-based AI agent built with TypeScript and Bun",
   "module": "index.ts",
   "type": "module",
-  "private": true,
   "bin": {
     "agent-dock": "./index.ts"
+  },
+  "scripts": {
+    "start": "bun run ./index.ts wakeup"
   },
   "devDependencies": {
     "@types/bun": "latest"
   },
-  "peerDependencies": {
-    "typescript": "^7"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wishmaster815/AgentDock.git"
   },
+  "homepage": "https://github.com/wishmaster815/AgentDock#readme",
   "dependencies": {
     "@clack/core": "^1.5.1",
     "@clack/prompts": "^1.8.1",
@@ -27,5 +33,9 @@
     "marked-terminal": "^7.3.0",
     "ora": "^9.4.1",
     "telegraf": "^4.16.3"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
   }
 }

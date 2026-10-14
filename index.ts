@@ -1,19 +1,24 @@
 #!/usr/bin/env bun
 
-import { argv } from "bun";
 import { Command } from "commander";
 import { runWakeUp } from "./tui/wakeup";
-const program = new Command;
+
+const program = new Command();
 
 program
     .name("agent-dock")
-    .description("AgentDock cli project")
+    .description("AgentDock CLI project")
     .version("0.0.1");
 
 program
     .command("wakeup")
-    .description("Show the banner and pick cli or telegram mode")
+    .description("Show the banner and pick CLI or Telegram mode")
     .action(async () => {
-        await (runWakeUp())
+        await runWakeUp();
     });
-await program.parseAsync(process.argv)
+
+program.action(async () => {
+    await runWakeUp();
+});
+
+await program.parseAsync(process.argv);
