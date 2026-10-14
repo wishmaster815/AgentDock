@@ -1,6 +1,6 @@
 {
   "name": "@wishmaster815/agentdock",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A terminal-based AI agent built with TypeScript and Bun",
   "module": "index.ts",
   "type": "module",
