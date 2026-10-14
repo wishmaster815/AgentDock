@@ -49,7 +49,7 @@ Before installing AgentDock, make sure you have:
 Install AgentDock globally:
 
 ```bash
-npm install -g @wishmaster815/agentdock-ai
+npm install -g @wishmaster815/agentdock
 ```
 
 
@@ -57,7 +57,7 @@ npm install -g @wishmaster815/agentdock-ai
 ### Using Bun
 
 ```bash
-bun add -g @wishmaster815/agentdock-ai
+bun add -g @wishmaster815/agentdock
 ```
 
 After installation, launch AgentDock:
